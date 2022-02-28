@@ -53,13 +53,13 @@ int main() {
         puts("7. Выйти");
 
 
-
         int menu_variant = input_int();
         switch (menu_variant) {
             case 1:
                 puts("Введите длину массива:");
                 array_len = input_int();
                 if (array_len == -1) {
+
                     puts("[ERR]Некорректное значение!\n");
                     break;
                 }
@@ -160,8 +160,7 @@ int input_int() {
     char str_array_len[MAX_ARRAY_LEN];
     fgets(str_array_len, MAX_ARRAY_LEN, stdin);
     fflush(stdin);
-    if (!(input_int_check(str_array_len))
-        || strlen(str_array_len) == 1) {
+    if (input_int_check(str_array_len) || strlen(str_array_len) == 1) {
         return -1;
     }
 
@@ -172,10 +171,10 @@ int input_int() {
 int input_int_check(char value_array[]) {
     for (int i = 0; i < strlen(value_array) - 1; ++i) {
         if ((value_array[i] < '0') || (value_array[i] > '9')) {
-            return 0;
+            return 1;
         }
     }
-    return 1;
+    return 0;
 }
 
 float get_expected_value(const int *array, int ar_len) {
