@@ -1,3 +1,5 @@
+//Соколов Лев Максимович КИ21-17 вар26
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -37,7 +39,6 @@ int main() {
     float math_wait;
     float dispersion;
     int is_dispersion;
-    float standard_deviation;
 
     system("chcp 65001 > nul");
 
@@ -58,7 +59,7 @@ int main() {
             case 1:
                 puts("Введите длину массива:");
                 array_len = input_int();
-                if (array_len == -1) {
+                if (array_len <= 1) {
 
                     puts("[ERR]Некорректное значение!\n");
                     break;
