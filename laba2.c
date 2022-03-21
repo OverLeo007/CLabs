@@ -6,11 +6,11 @@
 #include <string.h>
 
 
-#define MAX_RANDOM_NUMBER 10
+#define MAX_RANDOM_NUMBER 1000
 #define MAX_ARRAY_LEN 5
 
 
-int array_check(const int *array);
+int array_check(const int **array);
 
 int **generate_array(int ar_row, int ar_col, int is_count);
 
@@ -38,34 +38,57 @@ int main(void) {
 
     srand(time(NULL));
 
-    puts("Генерируем:");
-    array = generate_array(n, m, 1);
-    print_array(array, n, m);
-
-    puts("Добавляем строку с суммой столбца:");
-    upgraded_array = upgrade_array(array, n, m);
-    print_array(upgraded_array, n + 1, m);
-
-
-    puts("Сортируем по убыванию");
-    sorted_array = sort_array(upgraded_array, n + 1, m);
-    print_array(sorted_array, n + 1, m);
+    while (1) {
+        puts("1. Ввести n и m (n строк, m столбцов), для заполнения случайными числами");
+        puts("2. Вывести исходный массив");
+        puts("3. Вывести массив с n+1 строкой с суммами");
+        puts("4. Вывести массив с n+1 строкой с суммами, отсоритрованный по этим суммам");
+        puts("5. Выйти");
 
 
-    puts("--------------------------------------");
+        int menu_variant = input_int();
+        switch (menu_variant) {
+            case 1:
+                puts("Введите n и m через пробел:");
+//                n, m = input_two();
+                if (n < 1 || m < 1) {
+                    puts("[ERR]Некорректное значение!\n");
+                    break;
+                }
+                if (array != NULL) free(array);
+                array = generate_array(n, m, 0);
+                upgraded_array = upgrade_array(array, n, m);
+                sorted_array = sort_array(upgraded_array, n + 1, m);
+                puts("Массив сгенерирован");
+                break;
 
-    puts("Исходный массив:");
-    print_array(array, n, m);
-
-    puts("Массив с суммами, без сортировки:");
-    print_array(upgraded_array, n + 1, m);
-
-    puts("Отсортированный массив с суммами:");
-    print_array(sorted_array, n + 1, m);
+            case 2:
+                if (array_check(array)) break;
+                puts("Исходный массив:");
+                print_array(array, n, m);
+                break;
+            case 3:
+                if (array_check(array)) break;
+                puts("Массив с n+1 строкой с суммами:");
+                print_array(upgraded_array, n + 1, m);
+                break;
+            case 4:
+                if (array_check(array)) break;
+                puts("Массив с n+1 строкой с суммами, с отсортированными по этим суммам столбцами:");
+                print_array(sorted_array, n + 1, m);
+                break;
+            case 5:
+                free(array);
+                return 0;
+            default:
+                puts("[ERR]Такого варианта выбора нет\n");
+                break;
+        }
+    }
 }
 
 
-int array_check(const int *array) {
+int array_check(const int **array) {
     if (array == NULL) {
 
         puts("[ERR]Массив еще не сгенерирован\n");
