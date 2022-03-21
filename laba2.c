@@ -31,7 +31,7 @@ int main(void) {
     int **array = NULL;
     int **upgraded_array = NULL;
     int **sorted_array = NULL;
-    int n = 3, m = 3;
+    int n, m;
 
 
     system("chcp 65001 > nul");
@@ -49,8 +49,10 @@ int main(void) {
         int menu_variant = input_int();
         switch (menu_variant) {
             case 1:
-                puts("Введите n и m через пробел:");
-//                n, m = input_two();
+                puts("Введите n (кол-во строк):");
+                n = input_int();
+                puts("Введите m (кол-во столбцов):");
+                m = input_int();
                 if (n < 1 || m < 1) {
                     puts("[ERR]Некорректное значение!\n");
                     break;
@@ -107,7 +109,7 @@ int **generate_array(int ar_row, int ar_col, int is_count) {
         array[i] = malloc(ar_col * sizeof(int));
         for (int j = 0; j < ar_col; ++j) {
             if (i != ar_row) {
-                if (is_count){
+                if (is_count) {
                     array[i][j] = ++counter;
                 } else {
                     array[i][j] = rand() % MAX_RANDOM_NUMBER;
@@ -213,4 +215,3 @@ int input_int_check(char value_array[]) {
     }
     return 0;
 }
-
