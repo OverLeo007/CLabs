@@ -22,6 +22,8 @@ int **sort_array(int **array, int ar_row, int ar_col);
 
 void print_array(int **array, int ar_row, int ar_col);
 
+void free_array(int **array, int ar_row);
+
 int input_int_check(char value_array[]);
 
 int input_int();
@@ -57,7 +59,7 @@ int main(void) {
                     puts("[ERR]Некорректное значение!\n");
                     break;
                 }
-                if (array != NULL) free(array);
+                if (array != NULL) free_array(array, n);
                 array = generate_array(n, m, 0);
                 upgraded_array = upgrade_array(array, n, m);
                 sorted_array = sort_array(upgraded_array, n + 1, m);
@@ -177,6 +179,14 @@ int **sort_array(int **array, int ar_row, int ar_col) {
 
     trans_array = transpose_array(trans_array, ar_col, ar_row);
     return trans_array;
+}
+
+
+void free_array(int **array, int ar_row) {
+    for (int i = 0; i < ar_row; ++i) {
+        free(array[i]);
+    }
+    free(array);
 }
 
 
